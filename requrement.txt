@@ -1,0 +1,10 @@
+Flask
+flask-restx
+flask-sqlalchemy
+Werkzeug
+mysqlclient
+python-dotenv
+streamlit
+pandas
+Numpy
+matplotlib
