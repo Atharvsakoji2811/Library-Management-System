@@ -3,8 +3,9 @@ from Database.database import db
 class User(db.Model):
     __tablename__="user"
 
-    id=db.Column(db.Integer,unique=True,primary_key=True)
+    id=db.Column(db.Integer,unique=True,primary_key=True,  autoincrement=True)
     name=db.Column(db.String(250),nullable=False)
+    email=db.Column(db.String(250), nullable=False)
     password=db.Column(db.String(250),nullable=False)
     phone_no=db.Column(db.String(250),nullable=False)
     address=db.Column(db.String(250),nullable=False)
@@ -15,3 +16,5 @@ class User(db.Model):
                     backref="user",
                     lazy=True 
                     )
+    
+    membership_id = db.Column(db.Integer, db.ForeignKey("memberships.id"), nullable=True, default=1)
