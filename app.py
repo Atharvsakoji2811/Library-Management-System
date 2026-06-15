@@ -15,12 +15,11 @@ from Routes.circulation_route import circulation_route
 from Routes.user_route import user_route
 from Routes.auth_route import auth_route
 from Routes.membership_route import membership_route
-
-
+from Services.membership_servic import seed_membership_plans_if_empty
 
 load_dotenv()
 
-app =Flask(__name__)
+app = Flask(__name__)
 
 # Configuration
 app.config.from_object(config)
@@ -28,18 +27,17 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
+    seed_membership_plans_if_empty()
 
 app.secret_key = os.getenv("secret_key")
+
 
 @app.route("/")
 def home():
     return "Hello, world"
 
-api = Api(
-    app,
-    title="Library Management API",
-    doc="/swagger"
-)
+
+api = Api(app, title="Library Management API", doc="/swagger")
 
 api.add_namespace(user_route)
 api.add_namespace(book_route)
@@ -48,8 +46,4 @@ api.add_namespace(auth_route)
 api.add_namespace(membership_route)
 
 if __name__ == "__main__":
-    app.run(
-        host="0.0.0.0",
-        port=5000,
-        debug=True
-    )
+    app.run(host="0.0.0.0", port=5000, debug=True)

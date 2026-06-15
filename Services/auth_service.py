@@ -31,7 +31,7 @@ def register_user(data):
             password=password,
             phone_no=phone_no,
             address=address,
-            role=role,
+            role=role
         )
 
         db.session.add(new_user)
